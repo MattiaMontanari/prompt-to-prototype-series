@@ -14,6 +14,7 @@ In this session, we explored the fundamental differences between Large Language 
 - File system interaction tools (list_directory, read_file)
 - Persistent conversation memory across interactions
 - Agentic loop implementation with Claude
+- Web interface for browser-based interaction
 
 ## Key Concepts
 
@@ -67,15 +68,46 @@ Replace `your-anthropic-api-key-here` with your actual Anthropic API key.
 
 **Don't have an API key?** Get one at: https://console.anthropic.com/
 
-### 2. Activate Virtual Environment
+### 2. Install Dependencies
 
-The virtual environment is already created. Just activate it:
+Navigate to the project directory and install required packages:
 
 ```bash
+cd /Users/mattiamontanari/repos/ox-prompt-to-prototype-series/2025-12-01
 source venv/bin/activate
+pip install -r requirements.txt
 ```
 
+This installs:
+- `anthropic` - AI agent SDK
+- `flask` - Web framework (for browser interface)
+- `flask-cors` - Cross-origin support
+
 ## Running the Agent
+
+You can run the agent in two ways: as a command-line interface or as a web application.
+
+### Option 1: Web Browser Interface (Recommended)
+
+```bash
+# Make sure you're in the project directory
+cd /Users/mattiamontanari/repos/ox-prompt-to-prototype-series/2025-12-01
+
+# Activate the virtual environment
+source venv/bin/activate
+
+# Run the web server
+python server.py
+```
+
+Then open your browser to: **http://localhost:5001**
+
+You'll see a chat interface with:
+- Text input for messages
+- Chat history display
+- "Clear Memory" button to reset the conversation
+
+### Option 2: Command Line Interface
 
 ```bash
 # Make sure you're in the project directory
@@ -90,6 +122,19 @@ python agent.py
 
 ## Usage
 
+### Web Interface
+
+Open http://localhost:5001 in your browser and type messages in the chat box. Try:
+
+- "What files are in my current directory?"
+- "Read the agent.py file"
+- "Can you show me what's in the deleteme folder?"
+- "Summarize what you've learned about this project"
+
+Use the "Clear Memory" button to reset the conversation.
+
+### Command Line Interface
+
 Once running, you'll see:
 ```
 Agent initialized! Type 'quit' to exit, 'clear' to clear memory.
@@ -97,19 +142,7 @@ Agent initialized! Type 'quit' to exit, 'clear' to clear memory.
 You: 
 ```
 
-### Example Commands
-
-Try these commands:
-
-```
-You: What files are in my current directory?
-You: Read the agent.py file
-You: Can you show me what's in the deleteme folder?
-You: Summarize what you've learned about this project
-```
-
-### Special Commands
-
+**Special Commands:**
 - `quit` - Exit the agent
 - `clear` - Clear conversation memory (start fresh)
 
@@ -147,10 +180,18 @@ Then implement the tool method and add it to `execute_tool()`.
 
 ```
 .
-├── agent.py          # Main agent implementation
-├── README.md         # This file
-├── venv/            # Virtual environment (don't commit this)
-└── deleteme/        # Sample directory
+├── agent.py             # Main agent implementation
+├── server.py            # Flask web server
+├── templates/           # HTML templates
+│   └── index.html       # Web interface
+├── static/              # CSS and JavaScript
+│   ├── style.css        # Styling
+│   └── script.js        # Frontend logic
+├── requirements.txt     # Python dependencies
+├── setup.sh             # Setup script
+├── run_agent.sh         # Quick run script (CLI)
+├── README.md            # This file
+└── venv/                # Virtual environment (don't commit this)
 ```
 
 ## Troubleshooting
@@ -158,9 +199,14 @@ Then implement the tool method and add it to `execute_tool()`.
 **Error: API key file not found**
 - Make sure you created `~/ANTHROPIC_API_KEY` with your actual API key
 
-**Error: Module 'anthropic' not found**
+**Error: ModuleNotFoundError: No module named 'flask' or 'anthropic'**
 - Activate the virtual environment: `source venv/bin/activate`
-- If that doesn't work, reinstall: `pip install anthropic`
+- Install dependencies: `pip install -r requirements.txt`
+
+**Web server not starting**
+- Check if port 5001 is already in use
+- Make sure you're in the correct directory
+- Ensure the virtual environment is activated
 
 **Permission errors**
 - Make sure you're running from the correct directory

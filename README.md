@@ -16,6 +16,7 @@ The course is designed for educators, developers, and anyone interested in under
 
 | Date | Topic | Description | Demo |
 |------|-------|-------------|------|
+| **2025-12-08** | [Legacy Charts to Mermaid](2025-12-08/README.md) | Converted legacy flowchart images to editable Mermaid diagrams using GenAI | ![Mermaid Demo](2025-12-08/lesson/mermaid-diagram-2025-12-08-134132.png) |
 | **2025-12-01** | [LLMs vs Agents](2025-12-01/README.md) | Built a functional AI agent with memory, file system tools, and autonomous decision-making | ![Agent Demo](2025-12-01/lesson/p2p-course-01-12-2025-create-agent.gif) |
 | **2025-11-24** | [Building with Hugo](2025-11-24/README.md) | Migrated a personal website to Hugo with automatic multilingual content generation | ![Hugo Outcome](2025-11-24/lesson/2025-12-01-13-46-48.png) |
 
@@ -90,6 +91,10 @@ ox-prompt-to-prototype-series/
 │   ├── README.md
 │   ├── agent.py
 │   ├── server.py
+│   └── lesson/
+├── 2025-12-08/              # Week 3: Legacy Charts to Mermaid
+│   ├── README.md
+│   ├── input.png
 │   └── lesson/
 └── [future sessions]/
 ```
