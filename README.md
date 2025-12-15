@@ -1,7 +1,5 @@
 # From Prompt to Prototype: A 60 Minute AI Experiment
 
-[![Register for Course](https://img.shields.io/badge/Register-Oxford%20Skills-003366?style=for-the-badge)](https://skills.it.ox.ac.uk/whats-on#/course/OXFORDXU4U/WS074)
-
 ## About This Course
 
 This course explores the process of building functional prototypes in one hour using AI tools. Each session moves from initial concept to working implementation through live coding, demonstrating practical approaches to AI-assisted development.
@@ -16,6 +14,7 @@ The course is designed for educators, developers, and anyone interested in under
 
 | Date | Topic | Description | Demo |
 |------|-------|-------------|------|
+| **2025-12-15** | [Gemini: LaTeX, Charts, Web Apps](2025-12-15/README.md) | Converted handwritten equations to LaTeX, generated charts from CSV, built a PDF viewer | ![PDF Viewer Demo](2025-12-15/lesson/pdfviewer.gif) |
 | **2025-12-08** | [Legacy Charts to Mermaid](2025-12-08/README.md) | Converted legacy flowchart images to editable Mermaid diagrams using GenAI | ![Mermaid Demo](2025-12-08/lesson/mermaid-diagram-2025-12-08-134132.png) |
 | **2025-12-01** | [LLMs vs Agents](2025-12-01/README.md) | Built a functional AI agent with memory, file system tools, and autonomous decision-making | ![Agent Demo](2025-12-01/lesson/p2p-course-01-12-2025-create-agent.gif) |
 | **2025-11-24** | [Building with Hugo](2025-11-24/README.md) | Migrated a personal website to Hugo with automatic multilingual content generation | ![Hugo Outcome](2025-11-24/lesson/2025-12-01-13-46-48.png) |
@@ -49,15 +48,17 @@ The course is designed for educators, developers, and anyone interested in under
 
 ## Course Registration
 
-Register for upcoming sessions:
+Interested in booking or requesting a session? Get in touch:
 
-[Register on Oxford Skills Portal](https://skills.it.ox.ac.uk/whats-on#/course/OXFORDXU4U/WS074)
+- [Mattia Montanari's Website](https://www.mattiamontanari.com)
+- [Connect on LinkedIn](https://www.linkedin.com/in/mattia-montanari/)
 
 ---
 
 ## Session Materials
 
 Each session folder contains:
+
 - `README.md` - Detailed guide and documentation
 - Complete source code
 - Demo GIFs and screenshots
@@ -72,6 +73,7 @@ Browse the session folders above to explore the materials from each week.
 **Prior Knowledge:** Basic familiarity with digital skills — ranging from software development to design — applied to create or build a product or solution.
 
 **What You'll Need:**
+
 - No student computer activity required during the live sessions
 - For hands-on practice with materials: basic terminal/command line knowledge helpful
 - Curiosity and willingness to embrace the unpredictable
@@ -96,6 +98,9 @@ ox-prompt-to-prototype-series/
 │   ├── README.md
 │   ├── input.png
 │   └── lesson/
+├── 2025-12-15/              # Week 4: Gemini - LaTeX, Charts, Web Apps
+│   ├── README.md
+│   └── lesson/
 └── [future sessions]/
 ```
 
@@ -118,6 +123,6 @@ ox-prompt-to-prototype-series/
 
 This work is licensed under a [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-nc-sa/4.0/).
 
-**University of Oxford** | IT Services | Digital Capabilities
+**Mattia Montanari** | University of Oxford | IT Services | Digital Capabilities
 
 </div>
