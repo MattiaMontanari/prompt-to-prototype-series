@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Follow the path from Markdown and templates to a multilingual static website."><meta name="theme-color" content="#0866ff">
+<title>A website, in more than one language · Prompt to Prototype</title><link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../../assets/style.css"><script src="../../assets/script.js" defer></script>
+<script src="../../assets/learning.js" defer></script></head><body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header"><div class="header-inner">
+<a class="wordmark" href="../../"><span class="brand-icon" aria-hidden="true">P</span><span>Prompt to Prototype<small>A 60 minute AI experiment</small></span></a>
+<nav aria-label="Main navigation"><a href="../../">Lectures</a><a href="../../#about">About</a><a class="materials-link" href="https://github.com/MattiaMontanari/prompt-to-prototype-series">Materials <span aria-hidden="true">↗</span></a></nav>
+</div></header>
+<main id="main"><div class="article-heading"><a class="back-link" href="../../">← All lectures</a><p class="eyebrow">Lecture 01 <span>·</span> Web publishing</p><h1>A website, in more than one language</h1><p class="dek">Follow the path from Markdown and templates to a multilingual static website.</p></div>
+<div class="byline"><div><span class="meta-label">Instructor</span><span>Mattia Montanari</span></div><div><span class="meta-label">Class date</span><time datetime="2025-11-24">24 November 2025</time></div><div><span class="meta-label">Series</span><span>University of Oxford<br>IT Services · Digital Capabilities</span></div></div>
+<article class="article-grid"><p class="lead">A static website starts with files you can read and edit. This class explored migrating a personal site to a Hugo template and organising content in English and Italian.</p><aside class="margin-note source-note"><strong>Source of these notes</strong><p>Adapted from the repository’s class notes and saved artifacts. No transcript has been supplied yet.</p><a href="https://github.com/MattiaMontanari/prompt-to-prototype-series/tree/main/2025-11-24">Explore the original materials ↗</a></aside>
+<section id="experiment"><h2>Separate the words from the layout</h2><p>Hugo combines content, usually written in Markdown, with templates that describe the presentation. A build produces HTML files that a static host can serve.</p><p>This separation is useful during a template migration. The article’s words can stay the same while the navigation, typography and page structure change. The migration still needs a review of image paths, menus and links.</p></section>
+<aside class="margin-note"><strong>A static site</strong><p>The published pages are built ahead of time. Reading an article does not require a Python server or a model call.</p></aside>
+<section class="wide learning-tool" id="hugo-lab" aria-labelledby="hugo-lab-title"><div class="tool-heading"><span class="badge">Try it yourself</span><h2 id="hugo-lab-title">One template, two languages</h2><p>Edit the Markdown, then switch languages. Watch which content file and output path change.</p></div>
+<div class="tool-controls"><label for="hugo-language">Content language<select id="hugo-language"><option value="en">English</option><option value="it">Italiano</option></select></label><button id="hugo-reset" type="button">Reset example</button></div>
+<div class="lab-columns"><div><label for="hugo-markdown">Markdown source</label><textarea id="hugo-markdown" rows="7" maxlength="6000" spellcheck="false"># My first prototype
+
+A small experiment with a static website.
+
+## What I learned
+Content and presentation can be edited separately.</textarea><p class="path-label">Source: <code id="hugo-source-path">content/en/posts/hello.md</code></p></div>
+<div><span class="field-label">Rendered preview</span><div id="hugo-preview" class="markdown-preview" aria-live="polite"><h3>My first prototype</h3><p>A small experiment with a static website.</p></div><p class="path-label">Output: <code id="hugo-output-path">public/en/posts/hello/index.html</code></p></div></div>
+<ol class="pipeline"><li>Markdown <span>the words</span></li><li>Shared template <span>the presentation</span></li><li>Static HTML <span>the result</span></li></ol>
+<p class="tool-note">A simplified teaching preview with headings and paragraphs. It illustrates the Hugo workflow; it does not run Hugo or translate your text. Each language has its own source. The output paths are illustrative.</p><noscript><p>Enable JavaScript to edit the preview. The example paths above show the content-to-output relationship.</p></noscript></section>
+<section id="languages"><h2>Two languages, one site</h2><p>The class notes use separate content directories, <code>content/en</code> and <code>content/it</code>, with a shared Hugo configuration. Each language has its own label and ordering weight.</p><pre><code>[languages]
+  [languages.en]
+    languageName = "English"
+    weight = 1
+    contentDir = "content/en"
+  [languages.it]
+    languageName = "Italiano"
+    weight = 2
+    contentDir = "content/it"</code></pre><p>The session explored automatically generating multilingual content. Language configuration itself does not translate prose: translations must still be generated or written, reviewed and stored as content.</p></section>
+<section id="workflow"><h2>From edit to publication</h2><p>Use <code>hugo server -D</code> to preview changes, including drafts. Use <code>hugo --minify</code> to produce the static output for publication. The <code>public/</code> directory is the build output in a standard Hugo site.</p><p>When migrating a theme, start with one representative page. Check its links, language switch, images and layout at a narrow screen width before applying the theme across the site.</p></section>
+<figure class="wide artifact"><img src="../../assets/hugo-site.png" alt="Screenshot of the personal website produced during the Hugo session." width="3034" height="1668" loading="lazy"><figcaption><strong>Saved class artifact.</strong> The website screenshot recorded in the repository. The Hugo project itself is not included.</figcaption></figure>
+<section id="takeaway"><h2>The useful boundary</h2><p>Content, presentation and publication are separate jobs. Keeping that boundary clear makes it easier to change a theme, add a language, or move a site to a different static host.</p></section>
+<section class="references" id="references"><h2>Materials &amp; further reading</h2><ul><li><a href="https://github.com/MattiaMontanari/prompt-to-prototype-series/blob/main/2025-11-24/README.md">Original class notes</a></li><li><a href="https://gohugo.io/documentation/">Hugo documentation</a></li><li><a href="https://gohugo.io/content-management/multilingual/">Multilingual mode</a></li><li><a href="https://themes.gohugo.io/">Hugo themes</a></li></ul></section></article>
+<nav class="lecture-navigation" aria-label="Adjacent lectures"><a href="../2025-12-01/"><span>Next lecture →</span><strong>What makes an LLM an agent?</strong></a></nav></main><footer class="site-footer"><div><strong>From Prompt to Prototype</strong><p>Practical AI experiments with Mattia Montanari.</p><a href="../../">Browse all lectures</a></div><div><p>University of Oxford · IT Services · Digital Capabilities</p><p>Content licensed under <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>.</p></div></footer>
+</body></html>

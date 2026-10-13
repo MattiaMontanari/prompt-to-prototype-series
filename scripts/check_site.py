@@ -12,6 +12,7 @@ class Page(HTMLParser):
         self.links = []
         self.headings = 0
         self.language = None
+        self.copy_targets = []
 
     def handle_starttag(self, tag, attrs):
         attrs = dict(attrs)
@@ -23,9 +24,13 @@ class Page(HTMLParser):
             if attrs["id"] in self.ids:
                 raise ValueError(f"Duplicate id: {attrs['id']}")
             self.ids.add(attrs["id"])
-        for attr in ("href", "src"):
+        for attr in ("href", "src", "poster"):
             if attr in attrs:
                 self.links.append(attrs[attr])
+        if tag == "img" and not attrs.get("alt"):
+            raise ValueError("Content images require descriptive alt text")
+        if "data-copy-target" in attrs:
+            self.copy_targets.append(attrs["data-copy-target"])
 
 
 def main():
@@ -60,11 +65,15 @@ def main():
                     raise ValueError(f"{path}: missing anchor: {link}")
             checked += 1
 
-    text = (root / "index.html").read_text(encoding="utf-8")
-    for required in ("University of Oxford", "IT Services", "Digital Capabilities",
-                     "https://creativecommons.org/licenses/by-nc-sa/4.0/"):
-        if required not in text:
-            raise ValueError(f"Missing publication credit or license: {required}")
+    for path, page in pages.items():
+        text = path.read_text(encoding="utf-8")
+        for required in ("University of Oxford", "IT Services", "Digital Capabilities",
+                         "https://creativecommons.org/licenses/by-nc-sa/4.0/"):
+            if required not in text:
+                raise ValueError(f"{path}: missing publication credit or license: {required}")
+        for target in page.copy_targets:
+            if target not in page.ids:
+                raise ValueError(f"{path}: missing copy target: {target}")
     print(f"Validated {len(pages)} HTML page(s), {checked} local links, credits and license.")
 
 

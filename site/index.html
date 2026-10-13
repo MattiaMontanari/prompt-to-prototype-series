@@ -1,134 +1,16 @@
 <!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="An experiment in turning a legacy flowchart into an editable Mermaid diagram with generative AI, from the Oxford Prompt to Prototype series.">
-  <meta name="theme-color" content="#ffffff">
-  <title>From a static chart to an editable diagram · Prompt to Prototype</title>
-  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="assets/style.css">
-  <script src="assets/script.js" defer></script>
-</head>
-<body>
-  <a class="skip-link" href="#article">Skip to article</a>
-  <header class="site-header">
-    <a class="wordmark" href="./">Prompt to Prototype<span>A 60 minute AI experiment</span></a>
-    <a class="repository-link" href="https://github.com/MattiaMontanari/prompt-to-prototype-series">Course materials <span aria-hidden="true">↗</span></a>
-  </header>
-
-  <main id="article">
-    <div class="article-heading">
-      <p class="eyebrow">Class notes · 03</p>
-      <h1>From a static chart<br>to an editable diagram</h1>
-      <p class="dek">What happens when you ask a language model to read an old flowchart and turn it into code you can change?</p>
-    </div>
-    <div class="byline">
-      <div><span class="meta-label">Instructor</span><span>Mattia Montanari</span></div>
-      <div><span class="meta-label">Class date</span><time datetime="2025-12-08">8 December 2025</time></div>
-      <div><span class="meta-label">Series</span><span>University of Oxford<br>IT Services · Digital Capabilities</span></div>
-    </div>
-
-    <article class="article-grid">
-      <p class="lead">A diagram saved as an image is easy to share and awkward to revise. In this class, we explored a different starting point: give generative AI the image, ask it to recover the structure, and express that structure in Mermaid.</p>
-      <aside class="margin-note source-note"><strong>About this account</strong><p>Adapted from the existing class notes. A transcript has not yet been supplied.</p><a href="https://github.com/MattiaMontanari/prompt-to-prototype-series/tree/main/2025-12-08">View source materials ↗</a></aside>
-
-      <figure class="wide comparison">
-        <div class="comparison-images">
-          <div><span class="figure-label">The starting point</span><a href="assets/original-diagram.png"><img src="assets/original-diagram.png" width="2400" height="1760" alt="Original flowchart of a reduced-order modelling process, from input snapshots through decomposition, POD, formulation, discretization and postprocessing." fetchpriority="high"></a></div>
-          <div><span class="figure-label">The reconstructed diagram</span><a href="assets/mermaid-diagram.png"><img src="assets/mermaid-diagram.png" width="1203" height="1564" alt="Generated Mermaid flowchart showing the process as connected coloured nodes, including the homogeneous and unhomogeneous solution branches."></a></div>
-        </div>
-        <figcaption><span class="caption-number">Figure 1.</span> The original chart and the generated Mermaid output saved during the class. Select either image to inspect it at full resolution.</figcaption>
-      </figure>
-
-      <section id="experiment">
-        <h2>The experiment</h2>
-        <p>We gave ChatGPT 5.1 and Gemini 3 the same legacy flowchart and prompt. The task was to interpret the boxes, labels and connections, then produce Mermaid source that could be opened in an editor.</p>
-        <p>The chart describes a modelling workflow. It begins with input snapshots and splits the solution into homogeneous and unhomogeneous parts. The homogeneous branch proceeds through a reduced-basis construction, a weak formulation, discretization and postprocessing before contributing to the output.</p>
-        <p>This makes the branching logic a useful check: an attractive diagram is only helpful if it preserves the relationships in the original.</p>
-      </section>
-      <aside class="margin-note"><strong>Mermaid</strong><p>A text format for diagrams. Labels and connections live in a small source file, which an editor can render as a flowchart.</p><a href="https://mermaid.js.org/intro/">Read the introduction ↗</a></aside>
-
-      <section id="representation">
-        <h2>The useful change is in the representation</h2>
-        <p>The output is more than a replacement image. In Mermaid, a label can be corrected by editing a line of text; a connection can be changed by updating an arrow. The source can be stored in Git alongside the rest of a project.</p>
-        <pre class="small-example"><code>Input[Input Snapshots] --&gt; Step1{Decompose Solution}
-Step1 --&gt; Res1a[Unhomogeneous Solution]
-Step1 --&gt; Res1b[Homogeneous Solution]</code></pre>
-        <p>These three connections encode the first branch. They are also easy to inspect independently of colour, spacing or visual style.</p>
-      </section>
-
-      <section id="observations">
-        <h2>What we observed</h2>
-        <p>The class notes report that Gemini produced its result faster and interpreted the branching and styling more accurately in this example. Both models generated usable Mermaid code.</p>
-        <p>This was a live demonstration using one input, rather than a controlled benchmark. It provides a practical example of the workflow; it does not establish which model is more reliable across other diagrams.</p>
-      </section>
-      <aside class="margin-note"><strong>Check the structure</strong><p>Compare labels, arrow directions and branches with the original before relying on a generated diagram.</p></aside>
-
-      <section id="try-it">
-        <h2>Try the source</h2>
-        <p>Copy the source below into <a href="https://mermaid.live/">Mermaid Live</a>. Change a label or connection, inspect the result, and export an SVG when you are ready to use it elsewhere.</p>
-        <details class="source-code">
-          <summary>Mermaid source from the class</summary>
-          <div class="code-toolbar"><button id="copy-source" type="button" hidden>Copy source</button><span id="copy-status" role="status" aria-live="polite"></span></div>
-          <pre><code id="mermaid-source">flowchart TD
-
-    %% Define Styles using a Pantone-inspired palette
-    classDef inputNode fill:#89CFF0,stroke:#2B60DE,stroke-width:2px,color:black;
-    classDef actionNode fill:#F4C2C2,stroke:#D2691E,stroke-width:2px,color:black,shape:diamond;
-    classDef resultNode fill:#98FB98,stroke:#006400,stroke-width:2px,color:black;
-    classDef outputNode fill:#FF6961,stroke:#8B0000,stroke-width:2px,color:black;
-
-    Input[Input Snapshots]:::inputNode
-    Output[Output Results]:::outputNode
-    Step1{Decompose&lt;br/&gt;Solution}:::actionNode
-    Res1a[Unhomogeneous&lt;br/&gt;Solution]:::resultNode
-    Res1b[Homogeneous&lt;br/&gt;Solution]:::resultNode
-    Step2{Apply POD}:::actionNode
-    Res2[Homogeneous&lt;br/&gt;Reduced Basis]:::resultNode
-    Step3{Weak&lt;br/&gt;Formulation}:::actionNode
-    Res3[Reduced Set of&lt;br/&gt;ODEs]:::resultNode
-    Step4{Discretization}:::actionNode
-    Res4[Reduced Linear&lt;br/&gt;Algebraic System]:::resultNode
-    Step5{Postprocesses}:::actionNode
-    Res5[Compute Secondary&lt;br/&gt;Variables]:::resultNode
-
-    Input --&gt; Step1
-    Step1 --&gt; Res1a
-    Step1 --&gt; Res1b
-    Res1b --&gt; Step2
-    Step2 --&gt; Res2
-    Res2 --&gt; Step3
-    Step3 --&gt; Res3
-    Res3 --&gt; Step4
-    Step4 --&gt; Res4
-    Res4 --&gt; Step5
-    Step5 --&gt; Res5
-    Res5 --&gt; Output
-    Res1a -.-&gt; Output</code></pre>
-        </details>
-      </section>
-
-      <section id="takeaway">
-        <h2>A starting point for revision</h2>
-        <p>Generative AI can help move a diagram from pixels to an editable description. The practical gain is the ability to revise, review and share that description. The original image remains the reference against which the conversion should be checked.</p>
-      </section>
-
-      <section class="references" id="references">
-        <h2>Materials &amp; further reading</h2>
-        <ul>
-          <li><a href="https://github.com/MattiaMontanari/prompt-to-prototype-series/blob/main/2025-12-08/README.md">Original class notes and full Mermaid source</a></li>
-          <li><a href="https://mermaid.js.org/intro/">Mermaid documentation</a></li>
-          <li><a href="https://mermaid.live/">Mermaid Live Editor</a></li>
-          <li><a href="https://github.blog/2022-02-14-include-diagrams-markdown-files-mermaid/">Using Mermaid in GitHub Markdown</a></li>
-        </ul>
-      </section>
-    </article>
-  </main>
-
-  <footer class="site-footer">
-    <p><strong>From Prompt to Prototype</strong><br>A series of practical AI experiments with Mattia Montanari.</p>
-    <p>University of Oxford · IT Services · Digital Capabilities<br>Content licensed under <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>.</p>
-  </footer>
-</body>
-</html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Explore four Oxford Prompt to Prototype lectures on multilingual websites, AI agents, editable diagrams and Gemini, with interactive learning tools."><meta name="theme-color" content="#0866ff">
+<title>Lectures · Prompt to Prototype</title><link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/style.css"><script src="assets/script.js" defer></script>
+</head><body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header"><div class="header-inner">
+<a class="wordmark" href="./"><span class="brand-icon" aria-hidden="true">P</span><span>Prompt to Prototype<small>A 60 minute AI experiment</small></span></a>
+<nav aria-label="Main navigation"><a href="./" aria-current="page">Lectures</a><a href="#about">About</a><a class="materials-link" href="https://github.com/MattiaMontanari/prompt-to-prototype-series">Materials <span aria-hidden="true">↗</span></a></nav>
+</div></header><main id="main" class="landing"><section class="landing-hero"><div><p class="eyebrow">University of Oxford · Digital Capabilities</p><h1>From prompt<br>to prototype.</h1><p class="dek">Small experiments in building with AI.<br>Explore the ideas, inspect the artifacts, and try the concepts yourself.</p><a class="primary-link" href="#lectures">Explore the lectures <span aria-hidden="true">↓</span></a></div><aside class="course-note"><span class="badge">The series</span><h2>One hour.<br>Something working.</h2><p>Four live coding sessions with Mattia Montanari, following the useful discoveries and practical limits of generative AI.</p><div class="course-stats"><div><strong>04</strong><span>Lectures</span></div><div><strong>60</strong><span>Minutes per class</span></div></div></aside></section>
+<section id="lectures" class="catalogue" aria-labelledby="lectures-title"><div class="section-heading"><div><p class="eyebrow">The lecture collection</p><h2 id="lectures-title">Find your next experiment</h2></div><span id="lecture-count" role="status">4 lectures</span></div>
+<div id="catalogue-controls" class="catalogue-controls" hidden><label class="search-label" for="lecture-search">Search lectures<input id="lecture-search" type="search" placeholder="Try “Mermaid”, “memory”, or “Hugo”…" autocomplete="off"></label><div class="topic-filters" role="group" aria-label="Filter lectures by topic"><button type="button" data-filter="all" aria-pressed="true">All lectures</button><button type="button" data-filter="web" aria-pressed="false">Web publishing</button><button type="button" data-filter="agents" aria-pressed="false">Agents</button><button type="button" data-filter="diagrams" aria-pressed="false">Diagrams</button><button type="button" data-filter="data" aria-pressed="false">Data &amp; documents</button></div></div>
+<div class="lecture-grid"><article class="lecture-card" data-topic="data" data-search="From handwritten notes to working prototypes Explore equations, data visualisation and a PDF viewer built with Gemini. Data &amp; documents 15 December 2025 Gemini"><a class="card-link" href="lectures/2025-12-15/"><div class="card-visual visual-data"><img src="assets/gemini-mosaic.png" width="1408" height="768" alt="Mosaic-style visualisation from the Gemini class"></div><div class="card-body"><div class="card-meta"><span class="topic-tag">Data & documents</span><time datetime="2025-12-15">15 December 2025</time></div><h3>From handwritten notes to working prototypes</h3><p>Explore equations, data visualisation and a PDF viewer built with Gemini.</p><div class="card-bottom"><span>Lecture 04</span><span class="read-link">Read lecture <span aria-hidden="true">→</span></span></div></div></a><div class="card-lab"><span class="lab-dot" aria-hidden="true"></span><span>Experiment with chart axes</span></div></article><article class="lecture-card" data-topic="diagrams" data-search="From a static chart to an editable diagram Recover the structure of a legacy flowchart and express it as editable Mermaid code. Diagrams 8 December 2025 Mermaid"><a class="card-link" href="lectures/2025-12-08/"><div class="card-visual visual-diagrams"><img class="contain" src="assets/mermaid-diagram.png" width="1203" height="1564" alt="Editable flowchart created in the Mermaid class" loading="lazy"></div><div class="card-body"><div class="card-meta"><span class="topic-tag">Diagrams</span><time datetime="2025-12-08">8 December 2025</time></div><h3>From a static chart to an editable diagram</h3><p>Recover the structure of a legacy flowchart and express it as editable Mermaid code.</p><div class="card-bottom"><span>Lecture 03</span><span class="read-link">Read lecture <span aria-hidden="true">→</span></span></div></div></a><div class="card-lab"><span class="lab-dot" aria-hidden="true"></span><span>Explore a branching flow</span></div></article><article class="lecture-card" data-topic="agents" data-search="What makes an LLM an agent? Explore how tools, a decision loop and conversation memory extend a language model. Agents 1 December 2025 Claude memory tools"><a class="card-link" href="lectures/2025-12-01/"><div class="card-visual visual-agents"><div class="agent-cover" aria-hidden="true"><span>Prompt</span><b>→</b><span>Model</span><b>↔</b><span>Tools</span><small>+ conversation memory</small></div></div><div class="card-body"><div class="card-meta"><span class="topic-tag">Agents</span><time datetime="2025-12-01">1 December 2025</time></div><h3>What makes an LLM an agent?</h3><p>Explore how tools, a decision loop and conversation memory extend a language model.</p><div class="card-bottom"><span>Lecture 02</span><span class="read-link">Read lecture <span aria-hidden="true">→</span></span></div></div></a><div class="card-lab"><span class="lab-dot" aria-hidden="true"></span><span>Step through a tool call</span></div></article><article class="lecture-card" data-topic="web" data-search="A website, in more than one language Follow the path from Markdown and templates to a multilingual static website. Web publishing 24 November 2025 Hugo"><a class="card-link" href="lectures/2025-11-24/"><div class="card-visual visual-web"><img src="assets/hugo-site.png" width="3034" height="1668" alt="Website screenshot from the Hugo class" loading="lazy"></div><div class="card-body"><div class="card-meta"><span class="topic-tag">Web publishing</span><time datetime="2025-11-24">24 November 2025</time></div><h3>A website, in more than one language</h3><p>Follow the path from Markdown and templates to a multilingual static website.</p><div class="card-bottom"><span>Lecture 01</span><span class="read-link">Read lecture <span aria-hidden="true">→</span></span></div></div></a><div class="card-lab"><span class="lab-dot" aria-hidden="true"></span><span>Markdown & language preview</span></div></article></div><div id="no-lectures" class="empty-state" hidden><h3>No lectures match that search</h3><p>Try another term or show the full collection.</p><button id="clear-filters" type="button">Show all lectures</button></div></section>
+<section id="about" class="about-series"><div><span class="badge">About the course</span><h2>Learn from the process,<br>not just the result.</h2></div><div><p>“From Prompt to Prototype: A 60 Minute AI Experiment” is a series of unscripted live coding sessions exploring what AI tools can help us build in an hour.</p><p>These articles bring together the existing class notes, source code and saved demonstrations. Small learning tools make selected concepts easier to inspect. Transcript-based accounts can follow when transcripts are available.</p><a href="https://github.com/MattiaMontanari/prompt-to-prototype-series">Explore the original repository ↗</a></div></section></main><footer class="site-footer"><div><strong>From Prompt to Prototype</strong><p>Practical AI experiments with Mattia Montanari.</p><a href="./">Browse all lectures</a></div><div><p>University of Oxford · IT Services · Digital Capabilities</p><p>Content licensed under <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>.</p></div></footer>
+</body></html>

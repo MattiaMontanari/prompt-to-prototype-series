@@ -32,7 +32,10 @@ jobs:
       - name: Check local links, credits and license
         run: python3 scripts/check_site.py
       - name: Check JavaScript syntax
-        run: node --check site/assets/script.js
+        run: |
+          for script in site/assets/*.js; do
+            node --check "$script"
+          done
 
   deploy:
     name: Deploy to GitHub Pages

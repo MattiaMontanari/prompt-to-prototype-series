@@ -66,6 +66,8 @@ Each session folder contains:
 
 Browse the session folders above to explore the materials from each week.
 
+Read the illustrated notes and try the learning tools on the [course website](https://mattiamontanari.github.io/prompt-to-prototype-series/).
+
 ---
 
 ## Prerequisites
